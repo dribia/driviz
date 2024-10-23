@@ -85,11 +85,10 @@ For more examples, visit the
 """
 
 from copy import deepcopy
-from typing import Any, List, Literal, no_type_check
+from typing import Any, Literal, no_type_check
 
 import altair as alt
 import matplotlib as mpl
-import seaborn as sns
 from cycler import cycler
 from pydantic import BaseModel, ConfigDict
 from pydantic_extra_types.color import Color
@@ -412,37 +411,6 @@ class Theme(_Base):
         mpl_theme = self._get_mpl_theme()
         mpl_theme["axes.prop_cycle"] = cycler("color", [c.as_hex() for c in colors])
         mpl.rcParams.update(mpl_theme)
-
-    @staticmethod
-    def hex_color(ind: int):
-        """Gets the hex color.
-
-        Args:
-            ind: index of the color.
-        """
-        colors = [item.as_hex() for item in CategoryPalettes().palette]
-        return colors[ind]
-
-    @staticmethod
-    def sns_palette(n: int = None, list_ind: List[int] = None):
-        """Creates a seaborn palette with the selected indexes.
-
-        Args:
-            n: number of required colors
-            list_ind: indexs of the desired colors.
-        """
-        colors = [item.as_hex() for item in CategoryPalettes().palette]
-        if n:
-            delta = int(len(colors) / n)
-            selected = [
-                nn for nn, _ in enumerate(colors) if (nn / delta == nn // delta)
-            ]
-            list_ind = selected[:n]
-        elif list_ind:
-            pass
-        else:
-            list_ind = [nn for nn, _ in enumerate(colors)]
-        return sns.color_palette([colors[ind] for ind in list_ind])
 
 
 theme = Theme()
