@@ -2,8 +2,7 @@
 
 Here we define a custom theme for
 `Altair <https://altair-viz.github.io/index.html>`_ and
-`Matplotlib <https://matplotlib.org/stable/index.html>`_ used in
-``{{ cookiecutter.pkg_name }}``'s visualizations.
+`Matplotlib <https://matplotlib.org/stable/index.html>`_.
 We export a :data:`~.theme` object that should be used across the code
 to activate and deactivate the custom theme:
 
@@ -371,7 +370,7 @@ class Theme(_Base):
         .. doctest::
 
             >>> import altair as alt
-            >>> from {{ cookiecutter.pkg_name }}.viz.theme import theme
+            >>> from driviz.theme import theme
 
             >>> theme.set_basic_colors()
 
@@ -452,7 +451,7 @@ theme across the code.
 
 .. doctest::
 
-    >>> from {{ cookiecutter.pkg_name }}.viz.theme import theme
+    >>> from driviz.theme import theme
 
     >>> theme.enable()
 
