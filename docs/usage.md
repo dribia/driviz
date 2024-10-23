@@ -11,6 +11,7 @@ import altair as alt
 import numpy as np
 import pandas as pd
 import random
+
 from driviz.theme import theme
 
 theme.enable()
