@@ -100,6 +100,7 @@ chart.save(
     "altair_example_barh.html"
 )
 ```
+
 ## Contributing
 [Poetry](https://python-poetry.org) is the best way to interact with this project, to install it,
 follow the official [Poetry installation guide](https://python-poetry.org/docs/#installation).
