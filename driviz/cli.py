@@ -14,7 +14,7 @@ console = Console(tab_size=4)
 def main_callback(version: bool = Option(False, help="Show the package version.")):
     """DriViz command line interface."""
     if version:
-        console.print(f", version {__version__}")
+        console.print(f"driviz, version {__version__}")
 
 
 if __name__ == "__main__":
