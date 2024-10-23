@@ -1,0 +1,8 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v0.1.1-1-gac088ad
+_src_path: git@github.com:dribia/dritemplate-library.git
+library_description: Python library for the DriViz initiative.
+library_email: code@dribia.com
+library_name: DriViz
+library_type: open-source
+license_option: dribia-mit

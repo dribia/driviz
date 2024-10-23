@@ -1,0 +1,13 @@
+name: Publish
+
+on:
+  release:
+    types:
+      - publishedjobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: JRubics/poetry-publish@v1.17
+        with:
+          pypi_token: ${{ secrets.POETRY_PYPI_TOKEN_PYPI }}
