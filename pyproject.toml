@@ -101,9 +101,6 @@ exclude_lines = [
 [tool.coverage.xml]
 output = "coverage.xml"
 
-[tool.poetry.scripts]
-"driviz" = "driviz.cli:app"
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
