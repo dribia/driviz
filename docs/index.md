@@ -42,55 +42,21 @@ pip install driviz
 ## Example
 
 ```python
-import altair as alt
+import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
-import random
+
 from driviz.theme import theme
 
 theme.enable()
 
-variety =  [f"V{i}" for i in range(10)]
-site = [f"site{i:02d}" for i in range(14)]
-k = 10000
-df = pd.DataFrame(
-    data={
-        "yield": np.random.rand(k,),
-        "variety": random.choices(variety, k=k),
-        "site": random.choices(site, k=k),
-    }
-)
+t = np.arange(0.0, 2.0, 0.01)
+s = 1 + np.sin(2 * np.pi * t)
 
-selection = alt.selection_point(fields=["site"], bind="legend")
+fig, ax = plt.subplots()
+ax.plot(t, s)
+ax.set(xlabel='time (s)', ylabel='voltage (mV)')
+ax.grid()
 
-bars = (
-    alt.Chart(df)
-    .mark_bar()
-    .encode(
-        x=alt.X("sum(yield):Q", stack="zero"),
-        y=alt.Y("variety:N"),
-        color=alt.Color("site"),
-        opacity=alt.condition(
-            selection, alt.value(1), alt.value(0.2)
-        )
-    )
-    .properties(title="Example chart")
-    .add_params(selection)
-)
-
-text = (
-    alt.Chart(df)
-    .mark_text(dx=-15, dy=3, color="white")
-    .encode(
-        x=alt.X("sum(yield):Q", stack="zero"),
-        y=alt.Y("variety:N"),
-        detail="site:N",
-        text=alt.Text("sum(yield):Q", format=".1f")
-    )
-)
-
-chart = bars + text
-chart.save(
-    "altair_example_barh.html"
-)
+fig.savefig("test.png")
+plt.show()
 ```
