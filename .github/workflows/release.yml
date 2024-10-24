@@ -1,0 +1,10 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  call-release:
+    uses: dribia/driworkflows-release/.github/workflows/release.yml@v1

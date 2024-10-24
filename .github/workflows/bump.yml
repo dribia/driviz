@@ -1,0 +1,21 @@
+name: Bump
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release'
+        required: true
+        type: choice
+        options:
+          - 'major'
+          - 'minor'
+          - 'patch'
+        default: 'patch'
+
+jobs:
+  call-bump:
+    uses: dribia/driworkflows-release/.github/workflows/bump.yml@v1
+    with:
+      python-version: '3.11'
+      version: ${{ github.event.inputs.version }}
