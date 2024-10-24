@@ -3,7 +3,9 @@ name: Publish
 on:
   release:
     types:
-      - publishedjobs:
+      - published
+
+jobs:
   publish:
     runs-on: ubuntu-latest
     steps:

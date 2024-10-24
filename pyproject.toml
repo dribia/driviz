@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "driviz"
 version = "0.1.0"
-description = "Python library for the DriViz initiative."
+description = "Data Visualization Library containing the Dribia Theme."
 authors = ["Dribia Code <code@dribia.com>"]
 maintainers = ["Dribia Code <code@dribia.com>"]
 license = "MIT"
@@ -10,10 +10,17 @@ repository = "https://github.com/dribia/driviz"
 homepage = "https://github.com/dribia/driviz"
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.12"
+python = ">=3.10,<=3.12"
 typer = "^0.12.5"
 rich = "^13.8.1"
 setuptools = "^75.1.0"
+altair = "^5.4.1"
+numpy = "^2.1.2"
+pandas = "^2.2.3"
+matplotlib = "^3.9.2"
+cycler = "^0.12.1"
+pydantic = "^2.9.2"
+pydantic-extra-types = "^2.9.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = ">=3.8,<5.0"
@@ -93,9 +100,6 @@ exclude_lines = [
 
 [tool.coverage.xml]
 output = "coverage.xml"
-
-[tool.poetry.scripts]
-"driviz" = "driviz.cli:app"
 
 [build-system]
 requires = ["poetry-core"]

@@ -3,7 +3,7 @@
 <p style="text-align: center; padding-bottom: 1rem;">
     <a href="/driviz">
         <img
-            src="./img/logo_dribia_blau_cropped.png"
+            src="../img/logo_dribia_blau_cropped.png"
             alt="Dribia"
             style="display: block; margin-left: auto; margin-right: auto; width: 40%;"
         >
@@ -16,10 +16,12 @@
 | Package | [![PyPI](https://img.shields.io/pypi/v/driviz)](https://pypi.org/project/driviz/) ![PyPI - Downloads](https://img.shields.io/pypi/dm/driviz?color=blue&logo=pypi&logoColor=gold) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/driviz?logo=python&logoColor=gold) [![GitHub](https://img.shields.io/github/license/dribia/driviz?color=blue)](LICENSE)                                                                                                                                                                                                                                                                                                         |
 
 <p style="text-align: center;">
-    <em>Python library for the DriViz initiative.</em>
+    <em>Data Visualization Library containing the Dribia Theme.</em>
 </p>
 
----**Documentation**: <a href="https://dribia.github.io/driviz" target="_blank">https://dribia.github.io/driviz</a>
+---
+
+**Documentation**: <a href="https://dribia.github.io/driviz" target="_blank">https://dribia.github.io/driviz</a>
 
 **Source Code**: <a href="https://github.com/dribia/driviz" target="_blank">https://github.com/dribia/driviz</a>
 
@@ -27,9 +29,9 @@
 
 ## Key features
 
-* **Feature 1**: Explanation of the feature.
-* **Feature 2**: Explanation of the feature.
-* **Feature 3**: Explanation of the feature.
+* **Consistent look**: A theme for Altair and Matplotlib that provides a consistent look across projects.
+* **Easy to use**: Just import the theme and enable it.
+* **Customizable**: The theme can be customized to fit particular needs.
 
 ## Installation
 **driviz** is available on PyPI, so you can install it with `pip`:
@@ -39,6 +41,22 @@ pip install driviz
 
 ## Example
 
-```commandline
-driviz
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+from driviz import theme
+
+theme.enable()
+
+t = np.arange(0.0, 2.0, 0.01)
+s = 1 + np.sin(2 * np.pi * t)
+
+fig, ax = plt.subplots()
+ax.plot(t, s)
+ax.set(xlabel='Time (s)', ylabel='Voltage (mV)')
+ax.grid()
+
+fig.savefig("test.png")
+plt.show()
 ```
