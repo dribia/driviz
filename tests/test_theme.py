@@ -5,7 +5,7 @@ from typing import Any
 import altair as alt
 import matplotlib as mpl
 
-from driviz.theme import theme
+from driviz import theme
 
 _default_mpl_params = mpl.rcParams.copy()
 _default_alt_theme = alt.themes.active

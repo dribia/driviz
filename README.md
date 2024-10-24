@@ -41,7 +41,7 @@ pip install driviz
 ## Usage
 
 ```python
-from driviz.theme import theme
+from driviz import theme
 
 theme.enable()
 ```
@@ -52,7 +52,7 @@ import altair as alt
 import numpy as np
 import pandas as pd
 import random
-from driviz.theme import theme
+from driviz import theme
 
 theme.enable()
 

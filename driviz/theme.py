@@ -8,7 +8,7 @@ to activate and deactivate the custom theme:
 
 .. doctest::
 
-    >>> from driviz.theme import theme
+    >>> from driviz import theme
 
     >>> theme.enable()
 
@@ -31,7 +31,7 @@ The following example generates the interactive plot
     >>> import pandas as pd
     >>> import random
 
-    >>> from driviz.theme import theme
+    >>> from driviz import theme
 
     >>> theme.enable()
 
@@ -369,7 +369,7 @@ class Theme(_Base):
         .. doctest::
 
             >>> import altair as alt
-            >>> from driviz.theme import theme
+            >>> from driviz import theme
 
             >>> theme.set_basic_colors()
 
@@ -419,7 +419,7 @@ theme across the code.
 
 .. doctest::
 
-    >>> from driviz.theme import theme
+    >>> from driviz import theme
 
     >>> theme.enable()
 
