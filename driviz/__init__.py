@@ -1,6 +1,7 @@
 """DriViz."""
 
 from importlib.metadata import PackageNotFoundError, version
+
 from .theme import theme
 
 try:
