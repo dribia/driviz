@@ -1,11 +1,9 @@
 name: Release
 
 on:
-  workflow_call:
-    outputs:
-      tag:
-        description: 'Release tag'
-        value: ${{ jobs.create-release.outputs.tag }}
+  push:
+    branches:
+      - main
 
 jobs:
   create-release:
