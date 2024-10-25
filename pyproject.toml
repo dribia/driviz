@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "driviz"
-version = "0.1.0"
+version = "0.1.1"
 description = "Data Visualization Library containing the Dribia Theme."
 authors = ["Dribia Code <code@dribia.com>"]
 maintainers = ["Dribia Code <code@dribia.com>"]
