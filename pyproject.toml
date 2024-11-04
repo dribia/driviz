@@ -26,7 +26,7 @@ pydantic-extra-types = "^2.9.0"
 pre-commit = ">=3.8,<5.0"
 
 [tool.poetry.group.lint.dependencies]
-ruff = "0.7.0"
+ruff = "0.7.2"
 mypy = "1.13.0"
 types-fpdf2 = "^2.7.9.20240813"
 
