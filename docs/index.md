@@ -3,7 +3,7 @@
 <p style="text-align: center; padding-bottom: 1rem;">
     <a href="/driviz">
         <img
-            src="../img/logo_dribia_blau_cropped.png"
+            src="./img/logo_dribia_blau_cropped.png"
             alt="Dribia"
             style="display: block; margin-left: auto; margin-right: auto; width: 40%;"
         >

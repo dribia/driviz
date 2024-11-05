@@ -29,7 +29,7 @@ python -c "import driviz; print(driviz.__version__)"
 It would be very useful too to know which OS and Python version are your running `driviz` from.
 
 ## Contribute
-In order to contribute, the first step is to clone yourself the code:
+In order to contribute, the first step is to clone yourself the code
 [repository](https://github.com/dribia/driviz):
 ```shell
 git clone https://github.com/dribia/driviz.git
