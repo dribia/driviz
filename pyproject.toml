@@ -10,23 +10,25 @@ repository = "https://github.com/dribia/driviz"
 homepage = "https://github.com/dribia/driviz"
 
 [tool.poetry.dependencies]
-python = ">=3.10,<=3.12"
+python = ">=3.10,<3.13"
 typer = "^0.12.5"
-rich = "^13.8.1"
-setuptools = "^75.1.0"
+rich = "^13.9.4"
 altair = "^5.4.1"
 numpy = "^2.1.2"
 pandas = "^2.2.3"
 matplotlib = "^3.9.2"
 cycler = "^0.12.1"
 pydantic = "^2.9.2"
-pydantic-extra-types = "^2.9.0"
+pydantic-extra-types = "^2.10.0"
+
+[tool.poetry.group.ci.dependencies]
+setuptools = "^75.3.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = ">=3.8,<5.0"
 
 [tool.poetry.group.lint.dependencies]
-ruff = "0.7.0"
+ruff = "0.7.2"
 mypy = "1.13.0"
 types-fpdf2 = "^2.7.9.20240813"
 
