@@ -55,6 +55,6 @@ markdown_extensions:
 
 plugins:
 - mike:
-    alias_type: redirect
+    alias_type: symlink
     canonical_version: latest
 - search
