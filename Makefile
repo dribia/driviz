@@ -1,7 +1,7 @@
 .PHONY: all clean check test codestyle docstyle lint pip
 
-PROJECT?= driviz
-TESTS?= tests
+PROJECT ?= driviz
+TESTS ?= tests
 
 all:
 	make clean
