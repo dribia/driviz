@@ -12,6 +12,11 @@ on:
           - 'minor'
           - 'patch'
         default: 'patch'
+      keep-release-branch:
+        description: 'Keep release branch'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   create-release-branch:
@@ -33,12 +38,12 @@ jobs:
           git config --local user.name "github-actions[bot]"
           make bump-version COMMIT_VERSION=${{ github.event.inputs.version }}
           NEW_VERSION=v$(poetry version -s)
+          git tag -d $NEW_VERSION 2> /dev/null
           echo "::add-mask::$NEW_VERSION"
           echo "new-version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
-      - name: Push tags
+      - name: Push branch
         uses: ad-m/github-push-action@master
         with:
-          tags: true
           branch: release/${{ steps.bump-version.outputs.new-version }}
       - name: Encrypt tag
         id: encrypt-tag
@@ -83,3 +88,26 @@ jobs:
           branch: release/${{ steps.decrypt-tag.outputs.version }}-merge
           delete-branch: true
           title: ":rocket: New release ${{ steps.decrypt-tag.outputs.version }}"
+
+  delete-release-branch:
+    if: ${{ ! inputs.keep-release-branch }}
+    needs: [create-release-branch, create-pull-request]
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: 'write'
+      contents: 'write'
+      id-token: 'write'
+    steps:
+      - name: Decrypt tag
+        id: decrypt-tag
+        shell: bash
+        run: |
+          ENCRYPTED_SECRET=${{ needs.create-release-branch.outputs.encrypted-version }};
+          VERSION=$(echo -n "$ENCRYPTED_SECRET" | base64 --decode | openssl enc -d -a -k "password");
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Delete release branch
+        run: |
+          git push origin --delete release/${{ steps.decrypt-tag.outputs.version }}
