@@ -8,7 +8,7 @@ import matplotlib as mpl
 from driviz import theme
 
 _default_mpl_params = mpl.rcParams.copy()
-_default_alt_theme = alt.themes.active
+_default_alt_theme = alt.theme.active
 
 
 def _compare_mpl_params(p1: dict[str, Any], p2: dict[str, Any]) -> bool:
@@ -25,22 +25,30 @@ def test_theme():
     assert isinstance(theme._get_mpl_theme(), dict)
     assert isinstance(theme._get_alt_theme(), dict)
     assert _compare_mpl_params(mpl.rcParams.copy(), _default_mpl_params)
-    assert alt.themes.active == _default_alt_theme
+    assert alt.theme.active == _default_alt_theme
     theme.enable("alt")
     assert _compare_mpl_params(mpl.rcParams.copy(), _default_mpl_params)
-    assert alt.themes.active == theme.theme_name
+    assert alt.theme.active == theme.theme_name
     theme.enable("mpl")
-    assert alt.themes.active == theme.theme_name
+    assert alt.theme.active == theme.theme_name
     assert not _compare_mpl_params(mpl.rcParams.copy(), _default_mpl_params)
     theme.disable("alt")
-    assert alt.themes.active == _default_alt_theme
+    assert alt.theme.active == _default_alt_theme
     assert not _compare_mpl_params(mpl.rcParams.copy(), _default_mpl_params)
     theme.disable("mpl")
     assert _compare_mpl_params(mpl.rcParams.copy(), _default_mpl_params)
-    assert alt.themes.active == _default_alt_theme
+    assert alt.theme.active == _default_alt_theme
     theme.enable("all")
-    assert alt.themes.active == theme.theme_name
+    assert alt.theme.active == theme.theme_name
     assert not _compare_mpl_params(mpl.rcParams.copy(), _default_mpl_params)
     theme.disable("all")
     assert _compare_mpl_params(mpl.rcParams.copy(), _default_mpl_params)
-    assert alt.themes.active == _default_alt_theme
+    assert alt.theme.active == _default_alt_theme
+    theme.set_basic_colors()
+    assert alt.theme.active == "basic_colors"
+    theme.set_basic_colors(six=True)
+    assert alt.theme.active == "basic_colors_six"
+    theme.set_basic_colors(first_grey=True)
+    assert alt.theme.active == "basic_colors_grey"
+    theme.set_basic_colors(six=True, first_grey=True)
+    assert alt.theme.active == "basic_colors_six_grey"
