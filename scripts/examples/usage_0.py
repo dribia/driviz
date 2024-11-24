@@ -1,27 +1,22 @@
-The most basic example for usage is:
-```python
-from driviz import theme
+import random
 
-theme.enable()
-```
-
-### Examples
-```python
 import altair as alt
 import numpy as np
 import pandas as pd
-import random
 
 from driviz import theme
 
+alt.data_transformers.disable_max_rows()
+
 theme.enable()
 
-variety =  [f"V{i}" for i in range(10)]
+variety = [f"V{i}" for i in range(10)]
 site = [f"site{i:02d}" for i in range(14)]
 k = 10000
-df = pd.DataFrame(
+rng = np.random.default_rng()
+random_df = pd.DataFrame(
     data={
-        "yield": np.random.rand(k,),
+        "yield": rng.random(k),
         "variety": random.choices(variety, k=k),
         "site": random.choices(site, k=k),
     }
@@ -30,33 +25,26 @@ df = pd.DataFrame(
 selection = alt.selection_point(fields=["site"], bind="legend")
 
 bars = (
-    alt.Chart(df)
+    alt.Chart(random_df)
     .mark_bar()
     .encode(
         x=alt.X("sum(yield):Q", stack="zero"),
-        y=alt.Y("variety:N"),
-        color=alt.Color("site"),
-        opacity=alt.condition(
-            selection, alt.value(1), alt.value(0.2)
-        )
+        y=alt.Y("variety:N", title="Variety"),
+        color=alt.Color("site", title="Site"),
+        opacity=alt.condition(selection, alt.value(1), alt.value(0.2)),
     )
-    .properties(title="Example chart")
     .add_params(selection)
 )
 
 text = (
-    alt.Chart(df)
+    alt.Chart(random_df)
     .mark_text(dx=-15, dy=3, color="white")
     .encode(
         x=alt.X("sum(yield):Q", stack="zero"),
         y=alt.Y("variety:N"),
         detail="site:N",
-        text=alt.Text("sum(yield):Q", format=".1f")
+        text=alt.Text("sum(yield):Q", format=".1f"),
     )
 )
 
-chart = bars + text
-chart.save(
-    "altair_example_barh.html"
-)
-```
+chart = (bars + text).properties(title="Example chart", height=300)

@@ -28,6 +28,8 @@ jobs:
           cache: 'poetry'
       - name: Install Dependencies
         run: poetry install --only main,ci,docs
+      - name: Compile documentation
+        run: poetry run python scripts/generate_docs.py
       - name: Get minor version
         id: get-minor
         run: |
