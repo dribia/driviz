@@ -1,5 +1,3 @@
-"""Plot for index page."""
-
 import altair as alt
 import pandas as pd
 

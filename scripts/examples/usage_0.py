@@ -1,5 +1,3 @@
-"""Plot for usage page."""
-
 import random
 
 import altair as alt
