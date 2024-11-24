@@ -56,6 +56,7 @@ markdown_extensions:
       custom_fences:
         - name: vegalite
           class: vegalite
+          format: "!!python/name:mkdocs_charts_plugin.fences.fence_vegalite"
 
 plugins:
   - mike:
