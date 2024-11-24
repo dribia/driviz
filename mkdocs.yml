@@ -52,9 +52,19 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.superfences
   - pymdownx.tabbed
+  - pymdownx.superfences:
+      custom_fences:
+        - name: vegalite
+          class: vegalite
 
 plugins:
   - mike:
       alias_type: symlink
       canonical_version: latest
   - search
+  - charts
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/vega@5
+  - https://cdn.jsdelivr.net/npm/vega-lite@5
+  - https://cdn.jsdelivr.net/npm/vega-embed@6
