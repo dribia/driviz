@@ -335,10 +335,15 @@ class Theme(_Base):
 
         """
         if which in ["all", "alt"]:
-            if self.theme_name not in alt.themes.names():
-                alt.themes.register(self.theme_name, self._get_alt_theme)
-            alt.themes.enable(self.theme_name)
+
+            @alt.theme.register(self.theme_name, enable=True)
+            def dribia_theme():
+                return alt.theme.ThemeConfig(
+                    **self._get_alt_theme()
+                )  # pragma: no cover
+
             alt.renderers.set_embed_options(actions=self.actions.model_dump())
+
         if which in ["all", "mpl"]:
             mpl.rcParams.update(self._get_mpl_theme())
 
@@ -353,7 +358,7 @@ class Theme(_Base):
 
         """
         if which in ["all", "alt"]:
-            alt.themes.enable(self._default_theme)
+            alt.theme.enable(self._default_theme)
             alt.renderers.enable(self._default_renderer)
         if which in ["all", "mpl"]:
             mpl.rcParams.update(self._default_mpl_params)
@@ -400,13 +405,10 @@ class Theme(_Base):
         new_theme = self._get_alt_theme()
         new_theme["config"]["range"]["category"] = [c.as_hex() for c in colors]
 
-        def _get_alt_theme_basic_colors() -> dict[str, Any]:
-            """Function to register the new theme."""
-            return new_theme
+        @alt.theme.register(name, enable=True)
+        def dribia_basic_colors_theme():
+            return alt.theme.ThemeConfig(**new_theme)  # pragma: no cover
 
-        if name not in alt.themes.names():
-            alt.themes.register(name, _get_alt_theme_basic_colors)
-        alt.themes.enable(name)
         alt.renderers.set_embed_options(actions=self.actions.model_dump())
 
         mpl_theme = self._get_mpl_theme()
@@ -427,4 +429,4 @@ theme across the code.
 :meta hide-value:
 """
 
-__all__ = ["theme", "Theme"]
+__all__ = ["Theme", "theme"]
