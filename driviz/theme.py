@@ -338,7 +338,9 @@ class Theme(_Base):
 
             @alt.theme.register(self.theme_name, enable=True)
             def dribia_theme():
-                return alt.theme.ThemeConfig(**self._get_alt_theme())
+                return alt.theme.ThemeConfig(
+                    **self._get_alt_theme()
+                )  # pragma: no cover
 
             alt.renderers.set_embed_options(actions=self.actions.model_dump())
 
@@ -405,7 +407,7 @@ class Theme(_Base):
 
         @alt.theme.register(name, enable=True)
         def dribia_basic_colors_theme():
-            return alt.theme.ThemeConfig(**new_theme)
+            return alt.theme.ThemeConfig(**new_theme)  # pragma: no cover
 
         alt.renderers.set_embed_options(actions=self.actions.model_dump())
 
