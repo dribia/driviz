@@ -26,6 +26,7 @@ pre-commit = ">=3.8,<5.0"
 [tool.poetry.group.lint.dependencies]
 ruff = "0.8.0"
 mypy = "1.13.0"
+pandas-stubs = "^2.2.3"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.3.3"
