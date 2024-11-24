@@ -1,5 +1,5 @@
 import altair as alt
-from vega_datasets import data
+from vega_datasets import data  # type: ignore[import-untyped]
 
 from driviz import theme
 

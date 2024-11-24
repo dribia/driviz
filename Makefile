@@ -2,6 +2,7 @@
 
 PROJECT ?= driviz
 TESTS ?= tests
+SCRIPTS ?= scripts
 
 all:
 	make clean
@@ -18,13 +19,13 @@ clean:
 check: format lint
 
 format:
-	poetry run ruff format $(PROJECT) tests
-	poetry run ruff check --fix --unsafe-fixes $(PROJECT) $(TESTS)
+	poetry run ruff format $(PROJECT) $(TESTS)
+	poetry run ruff check --fix --unsafe-fixes $(PROJECT) $(TESTS) $(SCRIPTS)
 
 lint:
-	poetry run ruff format --check $(PROJECT) $(TESTS)
-	poetry run ruff check $(PROJECT) $(TESTS)
-	poetry run mypy $(PROJECT)
+	poetry run ruff format --check $(PROJECT) $(TESTS) $(SCRIPTS)
+	poetry run ruff check $(PROJECT) $(TESTS) $(SCRIPTS)
+	poetry run mypy $(PROJECT) $(SCRIPTS)
 
 lock:
 	poetry lock --no-update
