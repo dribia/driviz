@@ -197,6 +197,7 @@ class Theme(_Base):
         _hex_categories_palette = [c.as_hex() for c in self.category_palettes.palette]
         return {
             "config": {
+                "background": "white",
                 "view": {
                     "continuousHeight": self.height,
                     "continuousWidth": self.width,
