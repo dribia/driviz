@@ -427,4 +427,4 @@ theme across the code.
 :meta hide-value:
 """
 
-__all__ = ["theme", "Theme"]
+__all__ = ["Theme", "theme"]
