@@ -11,6 +11,7 @@ homepage = "https://github.com/dribia/driviz"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
+numpy = ">=1.26,<3.0"
 altair = "^5.5.0"
 matplotlib = "^3.9.2"
 cycler = "^0.12.1"
