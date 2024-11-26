@@ -25,8 +25,8 @@ chart = (
             "category:N",
             title="Category",
             scale=alt.Scale(
-                domain=color_mapping.keys(),
-                range=color_mapping.values(),
+                domain=list(color_mapping),
+                range=list(color_mapping.values()),
             ),
         ),
     )
