@@ -10,7 +10,7 @@ theme.enable()
 The following code enables the theme for creating a plot inspired on
 [this example](https://altair-viz.github.io/gallery/stacked_bar_chart_with_text.html){:target='_blank'}:
 
-{{ usage_0 }}
+{{ usage_enable }}
 
 ### Set basic colors
 
@@ -19,10 +19,24 @@ The following code enables the theme for creating a plot inspired on
 The following code enables the theme with **four** colors using the `set_basic_colors` method.
 Source: [https://altair-viz.github.io/gallery/normalized_stacked_area_chart.html](https://altair-viz.github.io/gallery/normalized_stacked_area_chart.html){:target='_blank'}.
 
-{{ usage_1 }}
+{{ usage_four_colors }}
 
 #### Six colors
 
 An option to allow **six** colors is also available by setting the argument `six=True`.
 
-{{ usage_2 }}
+{{ usage_six_colors }}
+
+### Set custom colors
+
+For creating a plot with custom colors, the theme can be enabled and use the colors in the
+plot encoding:
+
+{{ usage_custom_colors }}
+
+### Customizing the theme
+
+A further customization can be done by importing the `Theme` class from the `driviz.theme` module,
+and initializing it with the desired configuration:
+
+{{ usage_customize_theme }}

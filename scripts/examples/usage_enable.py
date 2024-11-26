@@ -21,9 +21,7 @@ random_df = pd.DataFrame(
         "site": random.choices(site, k=k),
     }
 )
-
 selection = alt.selection_point(fields=["site"], bind="legend")
-
 bars = (
     alt.Chart(random_df)
     .mark_bar()
@@ -35,7 +33,6 @@ bars = (
     )
     .add_params(selection)
 )
-
 text = (
     alt.Chart(random_df)
     .mark_text(dx=-15, dy=3, color="white")
@@ -46,5 +43,4 @@ text = (
         text=alt.Text("sum(yield):Q", format=".1f"),
     )
 )
-
 chart = (bars + text).properties(title="Example chart", height=300)
