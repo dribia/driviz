@@ -42,6 +42,10 @@ mkdocs-material = "^9.5.46"
 mkdocs-charts-plugin = "^0.0.12"
 vega-datasets = "^0.9.0"
 jinja2 = "^3.1.4"
+pandas = "^2.2.3"
+
+[tool.deptry.per_rule_ignores]
+DEP004 = ["pandas", "vega_datasets", "jinja2"]
 
 [tool.ruff]
 
