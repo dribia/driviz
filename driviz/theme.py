@@ -93,6 +93,8 @@ from cycler import cycler
 from pydantic import BaseModel, ConfigDict
 from pydantic_extra_types.color import Color
 
+WHICH_PACKAGE = Literal["all", "alt", "mpl"]
+
 
 class _Base(BaseModel):
     """Base class."""
@@ -322,7 +324,7 @@ class Theme(_Base):
         }
 
     @no_type_check
-    def enable(self, which: Literal["all", "alt", "mpl"] = "all") -> None:
+    def enable(self, which: WHICH_PACKAGE = "all") -> None:
         """Enable the custom theme.
 
         1. If the theme is not yet registered in Altair, we register it.
@@ -348,7 +350,7 @@ class Theme(_Base):
             mpl.rcParams.update(self._get_mpl_theme())
 
     @no_type_check
-    def disable(self, which: Literal["all", "alt", "mpl"] = "all") -> None:
+    def disable(self, which: WHICH_PACKAGE = "all") -> None:
         """Disable the custom theme.
 
         Disabling the theme is just enabling back the default one.
