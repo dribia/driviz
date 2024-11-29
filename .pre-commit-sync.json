@@ -6,5 +6,9 @@
     "ruff": {
         "repo": "https://github.com/astral-sh/ruff-pre-commit",
         "rev": "v${rev}"
+    },
+    "deptry": {
+        "repo": "https://github.com/fpgmaas/deptry.git",
+        "rev": "${rev}"
     }
 }

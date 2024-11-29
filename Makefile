@@ -48,7 +48,7 @@ bump-version:
 			exit 0; \
 		else \
 		  poetry install; \
-		  git commit pyproject.toml -m ":bookmark: $${commit_message}"; \
+		  poetry run git commit pyproject.toml -m ":bookmark: $${commit_message}"; \
 		  git tag -a "v$${new_version}" -m ":bookmark: $${commit_message}"; \
 		fi
 
@@ -71,7 +71,7 @@ bump-version:
 			poetry run pre-commit install --install-hooks; \
 			git add poetry.lock; \
   			poetry run pre-commit run --files poetry.lock || true; \
-  			git commit poetry.lock -m ":lock: Lock the project dependencies."; \
+  			poetry run git commit poetry.lock -m ":lock: Lock the project dependencies."; \
 		else \
 			echo "Poetry lock file is up-to-date."; \
 			poetry install --sync; \
