@@ -32,13 +32,13 @@ pandas-stubs = "^2.2.3"
 vega-datasets = "^0.9.0"
 
 [tool.poetry.group.test.dependencies]
-pytest = "^8.3.3"
+pytest = "^8.3.4"
 pytest-cov = "^6.0.0"
 
 [tool.poetry.group.docs.dependencies]
 mike = "^2.1.3"
 mkdocs = "^1.5.3"
-mkdocs-material = "^9.5.46"
+mkdocs-material = "^9.5.47"
 mkdocs-charts-plugin = "^0.0.12"
 vega-datasets = "^0.9.0"
 jinja2 = "^3.1.4"
