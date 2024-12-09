@@ -11,7 +11,7 @@ chart = (
     .mark_area()
     .encode(
         x="year:T",
-        y=alt.Y("net_generation:Q").stack("normalize"),  # noqa: PD013
+        y=alt.Y("net_generation:Q").stack("normalize"),
         color="source:N",
     )
 )
