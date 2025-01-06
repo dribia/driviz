@@ -19,15 +19,15 @@ pydantic = "^2.10.2"
 pydantic-extra-types = "^2.10.0"
 
 [tool.poetry.group.ci.dependencies]
-setuptools = "^75.6.0"
+setuptools = "^75.7.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = ">=3.8,<5.0"
-deptry = "^0.21.1"
+deptry = "^0.21.2"
 
 [tool.poetry.group.lint.dependencies]
-ruff = "0.8.3"
-mypy = "1.13.0"
+ruff = "0.8.6"
+mypy = "1.14.1"
 pandas-stubs = "^2.2.3"
 vega-datasets = "^0.9.0"
 
@@ -41,7 +41,7 @@ mkdocs = "^1.5.3"
 mkdocs-material = "^9.5.49"
 mkdocs-charts-plugin = "^0.0.12"
 vega-datasets = "^0.9.0"
-jinja2 = "^3.1.4"
+jinja2 = "^3.1.5"
 pandas = "^2.2.3"
 
 [tool.deptry.per_rule_ignores]
