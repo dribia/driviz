@@ -19,14 +19,14 @@ pydantic = "^2.10.2"
 pydantic-extra-types = "^2.10.0"
 
 [tool.poetry.group.ci.dependencies]
-setuptools = "^75.7.0"
+setuptools = "^75.8.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = ">=3.8,<5.0"
-deptry = "^0.21.2"
+deptry = "^0.22.0"
 
 [tool.poetry.group.lint.dependencies]
-ruff = "0.8.6"
+ruff = "0.9.1"
 mypy = "1.14.1"
 pandas-stubs = "^2.2.3"
 vega-datasets = "^0.9.0"
