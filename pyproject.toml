@@ -23,7 +23,7 @@ setuptools = "^75.8.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = ">=3.8,<5.0"
-deptry = "^0.22.0"
+deptry = "0.22.0"
 
 [tool.poetry.group.lint.dependencies]
 ruff = "0.9.1"
