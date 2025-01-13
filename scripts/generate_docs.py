@@ -14,7 +14,7 @@ def add_plot(name: str) -> str:
     vega_str = importlib.import_module(f"scripts.examples.{name}").chart.to_json(
         indent=2
     )
-    return f"```python\n{code}\n```\n\n" f"```vegalite\n{vega_str}\n```\n"
+    return f"```python\n{code}\n```\n\n```vegalite\n{vega_str}\n```\n"
 
 
 if __name__ == "__main__":
