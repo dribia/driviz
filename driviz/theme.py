@@ -86,6 +86,7 @@ For more examples, visit the
 
 from copy import deepcopy
 from typing import Any, Literal, no_type_check
+from enum import Enum
 
 import altair as alt
 import matplotlib as mpl
@@ -135,6 +136,11 @@ class CustomColors(_Base):
     black: Color = Color("#000000")
     white: Color = Color("#fff")
 
+class Language(Enum):
+    """Language options for the theme (ISO 639-1 two letter codes)."""
+    ca = "ca-ES"
+    es = "es-ES"
+    en = "en-GB"
 
 class VegaActions(_Base):
     """Vega actions options."""
@@ -189,6 +195,8 @@ class Theme(_Base):
     """Custom DPI."""
     actions: VegaActions = VegaActions()
     """Actions displayed in the actions menu."""
+    language: Language = Language.en
+    """Language."""
 
     def _get_alt_theme(self) -> dict[str, Any]:
         """Build and get the theme's configuration dictionary.
@@ -344,7 +352,7 @@ class Theme(_Base):
                     **self._get_alt_theme()
                 )  # pragma: no cover
 
-            alt.renderers.set_embed_options(actions=self.actions.model_dump())
+            alt.renderers.set_embed_options(actions=self.actions.model_dump(), time_format_locale=self.language.value)
 
         if which in ["all", "mpl"]:
             mpl.rcParams.update(self._get_mpl_theme())
@@ -411,7 +419,7 @@ class Theme(_Base):
         def dribia_basic_colors_theme():
             return alt.theme.ThemeConfig(**new_theme)  # pragma: no cover
 
-        alt.renderers.set_embed_options(actions=self.actions.model_dump())
+        alt.renderers.set_embed_options(actions=self.actions.model_dump(), time_format_locale=self.language)
 
         mpl_theme = self._get_mpl_theme()
         mpl_theme["axes.prop_cycle"] = cycler("color", [c.as_hex() for c in colors])
