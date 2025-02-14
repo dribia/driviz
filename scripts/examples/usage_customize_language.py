@@ -6,7 +6,7 @@
 import altair as alt
 from vega_datasets import data  # type: ignore[import-untyped]
 
-from driviz.theme import Theme, Language
+from driviz.theme import Language, Theme
 
 # Enable the theme
 theme = Theme(language=Language.ca)

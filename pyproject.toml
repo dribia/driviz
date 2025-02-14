@@ -47,6 +47,7 @@ pandas = "^2.2.3"
 
 [tool.deptry.per_rule_ignores]
 DEP004 = ["pandas", "vega_datasets", "jinja2"]
+DEP002 = ["vl-convert-python"]
 
 [tool.ruff]
 
