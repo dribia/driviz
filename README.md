@@ -107,7 +107,7 @@ follow the official [Poetry installation guide](https://python-poetry.org/docs/#
 
 With `poetry` installed, one can install the project dependencies with:
 ```console
-poetry install
+make setup
 ```
 
 Then, to run the project unit tests:
