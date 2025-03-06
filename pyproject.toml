@@ -48,6 +48,7 @@ pandas = "^2.2.3"
 DEP004 = ["pandas", "vega_datasets", "jinja2"]
 
 [tool.ruff]
+target-version = "py312"
 
 [tool.ruff.lint]
 select = [
