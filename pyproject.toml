@@ -41,7 +41,7 @@ mkdocs = "^1.5.3"
 mkdocs-material = "^9.6.7"
 mkdocs-charts-plugin = "^0.0.12"
 vega-datasets = "^0.9.0"
-jinja2 = "^3.1.5"
+jinja2 = "^3.1.6"
 pandas = "^2.2.3"
 
 [tool.deptry.per_rule_ignores]
