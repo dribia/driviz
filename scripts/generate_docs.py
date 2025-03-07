@@ -11,10 +11,18 @@ def add_plot(name: str) -> str:
     """Add the plot to the code."""
     with (Path(__file__).parents[0] / "examples" / f"{name}.py").open() as file:
         code = file.read()
-    vega_str = importlib.import_module(f"scripts.examples.{name}").chart.to_json(
-        indent=2
-    )
-    return f"```python\n{code}\n```\n\n```vegalite\n{vega_str}\n```\n"
+
+    chart = importlib.import_module(f"scripts.examples.{name}").chart
+
+    output_dir = Path(__file__).parents[1] / "docs" / "plots"
+    output_dir.mkdir(exist_ok=True)
+
+    img_format = "png"
+    output_path = output_dir / f"{name}.{img_format}"
+
+    chart.save(str(output_path))
+
+    return f"```python\n{code}\n```\n\n![Plot](plots/{name}.{img_format})\n"
 
 
 if __name__ == "__main__":
