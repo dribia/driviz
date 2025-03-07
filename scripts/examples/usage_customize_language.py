@@ -5,7 +5,6 @@ from driviz.theme import Language, Theme
 
 # Enable the theme
 theme = Theme(language=Language.ca)
-# Choose this over enable because it is more complete and can only do it for Altair
 theme.set_basic_colors()
 
 # Generate synthetic time series data
@@ -21,5 +20,3 @@ chart = (
     )
     .properties(title="Stocks", width=600, height=400)
 )
-
-chart.save("language_example.html")
