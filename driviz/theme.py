@@ -358,6 +358,7 @@ class Theme(_Base):
             alt.renderers.set_embed_options(
                 actions=self.actions.model_dump(),
                 time_format_locale=self.language.value,
+                format_locale=self.language.value,
             )
 
         if which in ["all", "mpl"]:
@@ -426,7 +427,9 @@ class Theme(_Base):
             return alt.theme.ThemeConfig(**new_theme)  # pragma: no cover
 
         alt.renderers.set_embed_options(
-            actions=self.actions.model_dump(), time_format_locale=self.language.value
+            actions=self.actions.model_dump(),
+            time_format_locale=self.language.value,
+            format_locale=self.language.value,
         )
 
         mpl_theme = self._get_mpl_theme()
