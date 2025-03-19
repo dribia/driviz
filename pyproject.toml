@@ -17,7 +17,6 @@ matplotlib = "^3.9.2"
 cycler = "^0.12.1"
 pydantic = "^2.10.2"
 pydantic-extra-types = "^2.10.0"
-vl-convert-python = "^1.7.0"
 
 [tool.poetry.group.ci.dependencies]
 setuptools = "^76.1.0"
@@ -44,6 +43,7 @@ mkdocs-charts-plugin = "^0.0.12"
 vega-datasets = "^0.9.0"
 jinja2 = "^3.1.6"
 pandas = "^2.2.3"
+vl-convert-python = "^1.7.0"
 
 [tool.deptry.per_rule_ignores]
 DEP004 = ["pandas", "vega_datasets", "jinja2"]
