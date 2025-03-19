@@ -189,6 +189,11 @@ class Theme(_Base):
     """Custom DPI."""
     actions: VegaActions = VegaActions()
     """Actions displayed in the actions menu."""
+    locale: str = "en-GB"
+    """
+    Locale options for the theme (ISO 639-1 two-letter codes). It works for Altair only.
+    Available options in: https://github.com/d3/d3-format/tree/main/locale
+    """
 
     def _get_alt_theme(self) -> dict[str, Any]:
         """Build and get the theme's configuration dictionary.
@@ -344,7 +349,11 @@ class Theme(_Base):
                     **self._get_alt_theme()
                 )  # pragma: no cover
 
-            alt.renderers.set_embed_options(actions=self.actions.model_dump())
+            alt.renderers.set_embed_options(
+                actions=self.actions.model_dump(),
+                time_format_locale=self.locale,
+                format_locale=self.locale,
+            )
 
         if which in ["all", "mpl"]:
             mpl.rcParams.update(self._get_mpl_theme())
@@ -411,7 +420,11 @@ class Theme(_Base):
         def dribia_basic_colors_theme():
             return alt.theme.ThemeConfig(**new_theme)  # pragma: no cover
 
-        alt.renderers.set_embed_options(actions=self.actions.model_dump())
+        alt.renderers.set_embed_options(
+            actions=self.actions.model_dump(),
+            time_format_locale=self.locale,
+            format_locale=self.locale,
+        )
 
         mpl_theme = self._get_mpl_theme()
         mpl_theme["axes.prop_cycle"] = cycler("color", [c.as_hex() for c in colors])

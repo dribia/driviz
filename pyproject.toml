@@ -19,7 +19,7 @@ pydantic = "^2.10.2"
 pydantic-extra-types = "^2.10.0"
 
 [tool.poetry.group.ci.dependencies]
-setuptools = "^76.0.0"
+setuptools = "^76.1.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = ">=3.8,<5.0"
@@ -43,9 +43,11 @@ mkdocs-charts-plugin = "^0.0.12"
 vega-datasets = "^0.9.0"
 jinja2 = "^3.1.6"
 pandas = "^2.2.3"
+vl-convert-python = "^1.7.0"
 
 [tool.deptry.per_rule_ignores]
 DEP004 = ["pandas", "vega_datasets", "jinja2"]
+DEP002 = ["vl-convert-python"]
 
 [tool.ruff]
 target-version = "py312"
