@@ -20,7 +20,7 @@ pydantic-extra-types = "^2.10.0"
 vl-convert-python = "^1.7.0"
 
 [tool.poetry.group.ci.dependencies]
-setuptools = "^76.0.0"
+setuptools = "^76.1.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = ">=3.8,<5.0"
