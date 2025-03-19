@@ -191,7 +191,7 @@ class Theme(_Base):
     """Actions displayed in the actions menu."""
     locale: str = "en-GB"
     """
-    Locale options for the theme (ISO 639-1 two-letter codes).
+    Locale options for the theme (ISO 639-1 two-letter codes). It works for Altair only.
     Available options in: https://github.com/d3/d3-format/tree/main/locale
     """
 
