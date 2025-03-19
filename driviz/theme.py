@@ -85,7 +85,6 @@ For more examples, visit the
 """
 
 from copy import deepcopy
-from enum import Enum
 from typing import Any, Literal, no_type_check
 
 import altair as alt
@@ -135,14 +134,6 @@ class CustomColors(_Base):
     yellow: Color = Color("#FFCD1B")
     black: Color = Color("#000000")
     white: Color = Color("#fff")
-
-
-class Language(Enum):
-    """Language options for the theme (ISO 639-1 two letter codes)."""
-
-    ca = "ca-ES"
-    es = "es-ES"
-    en = "en-GB"
 
 
 class VegaActions(_Base):
@@ -198,8 +189,11 @@ class Theme(_Base):
     """Custom DPI."""
     actions: VegaActions = VegaActions()
     """Actions displayed in the actions menu."""
-    language: Language = Language.en
-    """Language."""
+    locale: str = "en-GB"
+    """
+    Locale options for the theme (ISO 639-1 two-letter codes).
+    Available options in: https://github.com/d3/d3-format/tree/main/locale
+    """
 
     def _get_alt_theme(self) -> dict[str, Any]:
         """Build and get the theme's configuration dictionary.
@@ -357,8 +351,8 @@ class Theme(_Base):
 
             alt.renderers.set_embed_options(
                 actions=self.actions.model_dump(),
-                time_format_locale=self.language.value,
-                format_locale=self.language.value,
+                time_format_locale=self.locale,
+                format_locale=self.locale,
             )
 
         if which in ["all", "mpl"]:
@@ -428,8 +422,8 @@ class Theme(_Base):
 
         alt.renderers.set_embed_options(
             actions=self.actions.model_dump(),
-            time_format_locale=self.language.value,
-            format_locale=self.language.value,
+            time_format_locale=self.locale,
+            format_locale=self.locale,
         )
 
         mpl_theme = self._get_mpl_theme()
