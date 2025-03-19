@@ -13,6 +13,8 @@ jobs:
       - uses: JRubics/poetry-publish@v2.1
         with:
           pypi_token: ${{ secrets.POETRY_PYPI_TOKEN_PYPI }}
+          python_version: '3.12'
+          poetry_version: '1.8.5'
 
   docs:
     needs: [publish]
