@@ -26,13 +26,13 @@ pre-commit = ">=3.8,<5.0"
 deptry = "0.23.0"
 
 [tool.poetry.group.lint.dependencies]
-ruff = "0.11.12"
+ruff = "0.11.13"
 mypy = "1.16.0"
 pandas-stubs = "^2.2.3"
 vega-datasets = "^0.9.0"
 
 [tool.poetry.group.test.dependencies]
-pytest = "^8.3.5"
+pytest = "^8.4.0"
 pytest-cov = "^6.1.1"
 
 [tool.poetry.group.docs.dependencies]
@@ -42,7 +42,7 @@ mkdocs-material = "^9.6.14"
 mkdocs-charts-plugin = "^0.0.12"
 vega-datasets = "^0.9.0"
 jinja2 = "^3.1.6"
-pandas = "^2.2.3"
+pandas = "^2.3.0"
 vl-convert-python = "^1.8.0"
 
 [tool.deptry.per_rule_ignores]
