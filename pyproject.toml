@@ -2,11 +2,30 @@
 name = "driviz"
 version = "0.5.0"
 description = "Data Visualization Library containing the Dribia Theme."
-authors = [{ name = "Dribia Code", email = "code@dribia.com" }]
+authors = [{ name = "Dribia Data Research", email = "code@dribia.com" }]
 requires-python = ">=3.10,<3.14"
 readme = "README.md"
 license = "MIT"
-maintainers = [{ name = "Dribia Code", email = "code@dribia.com" }]
+maintainers = [{ name = "Dribia Data Research", email = "code@dribia.com" }]
+classifiers = [
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python",
+    "Topic :: Internet",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development",
+    "Typing :: Typed",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: Internet :: WWW/HTTP",
+]
 dependencies = [
     "numpy>=1.26,<3.0",
     "altair>=5.5.0,<6",
