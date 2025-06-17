@@ -1,6 +1,6 @@
 [project]
 name = "driviz"
-version = "0.5.0"
+version = "0.5.1"
 description = "Data Visualization Library containing the Dribia Theme."
 authors = [{ name = "Dribia Data Research", email = "code@dribia.com" }]
 requires-python = ">=3.10,<3.14"
