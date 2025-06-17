@@ -58,6 +58,15 @@ bump-version:
 			echo "\nNew version: $${new_version}"; \
 		fi
 
+--check-git-status:
+	@status=$$(git status --porcelain); \
+		if [ -n "$${status}" ]; \
+		then \
+			echo "ERROR:\n  GIT status is not clean.\
+			\n  Commit or discard your changes before using this script."; \
+			exit 1; \
+		fi
+
 --setup-uv:
 	@echo "Checking if uv is installed ..."; \
 		uv_path=$$(command -v "uv"); \
