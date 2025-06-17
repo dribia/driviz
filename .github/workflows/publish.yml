@@ -32,6 +32,8 @@ jobs:
           enable-cache: true
       - name: Install Dependencies
         run: uv sync --no-default-groups --group ci --group docs
+      - name: Compile documentation
+        run: uv run python scripts/generate_docs.py
       - name: Get minor version
         id: get-minor
         run: |
