@@ -1,56 +1,74 @@
-[tool.poetry]
+[project]
 name = "driviz"
 version = "0.4.0"
 description = "Data Visualization Library containing the Dribia Theme."
-authors = ["Dribia Code <code@dribia.com>"]
-maintainers = ["Dribia Code <code@dribia.com>"]
-license = "MIT"
+authors = [{ name = "Dribia Code", email = "code@dribia.com" }]
+requires-python = ">=3.10,<3.14"
 readme = "README.md"
-repository = "https://github.com/dribia/driviz"
-homepage = "https://github.com/dribia/driviz"
+license = "MIT"
+maintainers = [{ name = "Dribia Code", email = "code@dribia.com" }]
+dependencies = [
+    "numpy>=1.26,<3.0",
+    "altair>=5.5.0,<6",
+    "matplotlib>=3.9.2,<4",
+    "cycler>=0.12.1,<0.13",
+    "pydantic>=2.10.2,<3",
+    "pydantic-extra-types>=2.10.0,<3",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.10,<3.13"
-numpy = ">=1.26,<3.0"
-altair = "^5.5.0"
-matplotlib = "^3.9.2"
-cycler = "^0.12.1"
-pydantic = "^2.10.2"
-pydantic-extra-types = "^2.10.0"
+[project.urls]
+Homepage = "https://github.com/dribia/driviz"
+Repository = "https://github.com/dribia/driviz"
 
-[tool.poetry.group.ci.dependencies]
-setuptools = "^80.9.0"
+[dependency-groups]
+ci = [
+    "setuptools>=80.9.0,<81",
+]
+dev = [
+    "pre-commit>=3.8,<5.0",
+    "deptry==0.23.0",
+]
+lint = [
+    "ruff==0.11.13",
+    "mypy==1.16.0",
+    "pandas-stubs>=2.2.3,<3",
+    "vega-datasets>=0.9.0,<0.10",
+]
+test = [
+    "pytest>=8.4.0,<9",
+    "pytest-cov>=6.2.1,<7",
+]
+docs = [
+    "mike>=2.1.3,<3",
+    "mkdocs>=1.5.3,<2",
+    "mkdocs-material>=9.6.14,<10",
+    "mkdocs-charts-plugin>=0.0.12,<0.0.13",
+    "vega-datasets>=0.9.0,<0.10",
+    "jinja2>=3.1.6,<4",
+    "pandas>=2.3.0,<3",
+    "vl-convert-python>=1.8.0,<2",
+]
 
-[tool.poetry.group.dev.dependencies]
-pre-commit = ">=3.8,<5.0"
-deptry = "0.23.0"
+[tool.uv]
+required-version = ">=0.7.13,<1.0"
+default-groups = [
+    "ci",
+    "dev",
+    "lint",
+    "test",
+    "docs",
+]
 
-[tool.poetry.group.lint.dependencies]
-ruff = "0.11.13"
-mypy = "1.16.0"
-pandas-stubs = "^2.2.3"
-vega-datasets = "^0.9.0"
-
-[tool.poetry.group.test.dependencies]
-pytest = "^8.4.0"
-pytest-cov = "^6.2.1"
-
-[tool.poetry.group.docs.dependencies]
-mike = "^2.1.3"
-mkdocs = "^1.5.3"
-mkdocs-material = "^9.6.14"
-mkdocs-charts-plugin = "^0.0.12"
-vega-datasets = "^0.9.0"
-jinja2 = "^3.1.6"
-pandas = "^2.3.0"
-vl-convert-python = "^1.8.0"
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.deptry.per_rule_ignores]
 DEP004 = ["pandas", "vega_datasets", "jinja2"]
 DEP002 = ["vl-convert-python"]
 
 [tool.ruff]
-target-version = "py312"
+target-version = "py313"
 
 [tool.ruff.lint]
 select = [
@@ -113,7 +131,6 @@ markers = [
   "integration: integration tests",
 ]
 
-
 [tool.coverage.run]
 source = ["driviz"]
 branch = true
@@ -129,7 +146,3 @@ exclude_lines = [
 
 [tool.coverage.xml]
 output = "coverage.xml"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
