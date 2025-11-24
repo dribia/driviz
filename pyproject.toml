@@ -27,7 +27,7 @@ classifiers = [
 ]
 dependencies = [
     "numpy>=1.26,<3.0",
-    "altair>=5.5.0,<6",
+    "altair>=5.5.0,<7",
     "matplotlib>=3.9.2,<4",
     "cycler>=0.12.1,<0.13",
     "pydantic>=2.9.0,<3",
