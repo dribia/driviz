@@ -32,7 +32,7 @@ dependencies = [
     "cycler>=0.12.1,<0.13",
     "pydantic>=2.9.0,<3",
     "pydantic-extra-types>=2.10.0,<3",
-    "vl-convert-python==1.8.0",
+    "vl-convert-python==1.9.0",
 ]
 
 [project.urls]
@@ -48,7 +48,7 @@ dev = [
     "deptry==0.24.0",
 ]
 lint = [
-    "ruff==0.14.10",
+    "ruff==0.14.11",
     "mypy==1.19.1",
     "pandas-stubs>=2.2.3,<3",
     "vega-datasets>=0.9.0,<0.10",
