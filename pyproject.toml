@@ -41,14 +41,14 @@ Repository = "https://github.com/dribia/driviz"
 
 [dependency-groups]
 ci = [
-    "setuptools>=80.9.0,<81",
+    "setuptools>=80.9.0,<83",
 ]
 dev = [
     "pre-commit>=3.8,<5.0",
     "deptry==0.24.0",
 ]
 lint = [
-    "ruff==0.14.14",
+    "ruff==0.15.0",
     "mypy==1.19.1",
     "pandas-stubs>=2.2.3,<3",
     "vega-datasets>=0.9.0,<0.10",
