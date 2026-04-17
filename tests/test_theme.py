@@ -61,3 +61,13 @@ def test_theme():
         )
         == "dribia_blue"
     )
+    theme.disable()
+    theme.enable()
+    assert (
+        theme._get_cmap(
+            _hex_categories_palette=theme._get_alt_theme()["config"]["range"][
+                "category"
+            ]
+        )
+        == "dribia"
+    )
