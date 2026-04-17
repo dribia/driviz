@@ -160,6 +160,7 @@ class Theme(_Base):
     _default_theme: str = "default"
     _default_renderer: str = "default"
     _default_mpl_params: mpl.RcParams = deepcopy(mpl.rcParams)
+    _only_blue_in_gradients: bool = False
     """Altair's default theme name."""
     theme_name: str = "dribia"
     """Name under which the theme is registered."""
@@ -195,12 +196,8 @@ class Theme(_Base):
     Available options in: https://github.com/d3/d3-format/tree/main/locale
     """
 
-    def _get_alt_theme(self, only_blue_in_gradients: bool = False) -> dict[str, Any]:
+    def _get_alt_theme(self) -> dict[str, Any]:
         """Build and get the theme's configuration dictionary.
-
-        Args:
-            only_blue_in_gradients: If True, use only the first four
-                palette colors (blues) for ramp and heatmap ranges.
 
         Returns: Theme's configurations.
 
@@ -208,12 +205,12 @@ class Theme(_Base):
         _hex_categories_palette = [c.as_hex() for c in self.category_palettes.palette]
         _gradient_palette = (
             _hex_categories_palette[0:4]
-            if only_blue_in_gradients
+            if self._only_blue_in_gradients
             else _hex_categories_palette
         )
         _heatmap_palette = (
             _hex_categories_palette[0:4]
-            if only_blue_in_gradients
+            if self._only_blue_in_gradients
             else _hex_categories_palette[0:10]
         )
         return {
@@ -290,20 +287,14 @@ class Theme(_Base):
             }
         }
 
-    @staticmethod
-    def _get_cmap(
-        _hex_categories_palette: list[str],
-        only_blue_in_gradients: bool = False,
-    ) -> str:
+    def _get_cmap(self, _hex_categories_palette: list[str]) -> str:
         """Build and get the theme's color map.
 
         Args:
             _hex_categories_palette: List of hex color strings.
-            only_blue_in_gradients: If True, use only the first four
-                palette colors (blues) for the colormap.
 
         """
-        if only_blue_in_gradients:
+        if self._only_blue_in_gradients:
             cmap_name = "dribia_blue"
             cmap_colors = _hex_categories_palette[0:4]
         else:
@@ -318,12 +309,8 @@ class Theme(_Base):
             )
         return cmap_name
 
-    def _get_mpl_theme(self, only_blue_in_gradients: bool = False) -> dict[str, Any]:
+    def _get_mpl_theme(self) -> dict[str, Any]:
         """Build and get the Matplotlib theme's configuration dict.
-
-        Args:
-            only_blue_in_gradients: If True, use only the first four
-                palette colors (blues) for the colormap.
 
         Returns: Matplotlib theme's configurations.
 
@@ -348,9 +335,7 @@ class Theme(_Base):
             "font.size": self.font_size_base,
             "font.weight": "normal",
             "grid.color": self.color.grey.as_hex(),
-            "image.cmap": self._get_cmap(
-                _hex_categories_palette, only_blue_in_gradients
-            ),
+            "image.cmap": self._get_cmap(_hex_categories_palette),
             "legend.fontsize": self.font_size_base,
             "legend.labelcolor": self.font_color.as_hex(),
             "legend.loc": "upper right",
@@ -384,10 +369,9 @@ class Theme(_Base):
                 (ramp, heatmap, and matplotlib colormap).
 
         """
+        self._only_blue_in_gradients = only_blue_in_gradients
         if which in ["all", "alt"]:
-            _alt_theme = self._get_alt_theme(
-                only_blue_in_gradients=only_blue_in_gradients
-            )
+            _alt_theme = self._get_alt_theme()
 
             @alt.theme.register(self.theme_name, enable=True)
             def dribia_theme():
@@ -400,9 +384,7 @@ class Theme(_Base):
             )
 
         if which in ["all", "mpl"]:
-            mpl.rcParams.update(
-                self._get_mpl_theme(only_blue_in_gradients=only_blue_in_gradients)
-            )
+            mpl.rcParams.update(self._get_mpl_theme())
 
     @no_type_check
     def disable(self, which: WHICH_PACKAGE = "all") -> None:
