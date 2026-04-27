@@ -57,10 +57,10 @@ docs = [
   "vega-datasets>=0.9.0,<0.10",
 ]
 lint = [
-  "mypy==1.20.1",
   "pandas-stubs>=2.2.3,<3",
   "ruff==0.15.11",
   "tombi==0.9.20",
+  "ty==0.0.31",
   "vega-datasets>=0.9.0,<0.10",
 ]
 test = [
@@ -130,11 +130,6 @@ ignore = [
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
-
-[tool.mypy]
-plugins = []
-strict_optional = true
-ignore_missing_imports = false
 
 [tool.pytest.ini_options]
 minversion = "8.0"
