@@ -52,3 +52,22 @@ def test_theme():
     assert alt.theme.active == "basic_colors_grey"
     theme.set_basic_colors(six=True, first_grey=True)
     assert alt.theme.active == "basic_colors_six_grey"
+    theme.enable(only_blue_in_gradients=True)
+    assert (
+        theme._get_cmap(
+            _hex_categories_palette=theme._get_alt_theme()["config"]["range"][
+                "category"
+            ]
+        )
+        == "dribia_blue"
+    )
+    theme.disable()
+    theme.enable()
+    assert (
+        theme._get_cmap(
+            _hex_categories_palette=theme._get_alt_theme()["config"]["range"][
+                "category"
+            ]
+        )
+        == "dribia"
+    )
