@@ -145,6 +145,13 @@ markers = [
 source = ["driviz"]
 branch = true
 
+[tool.ty.src]
+include = [
+  "driviz",
+  "scripts",
+  "tests",
+]
+
 [tool.coverage.report]
 precision = 2
 exclude_lines = [
