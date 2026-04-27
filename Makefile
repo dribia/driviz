@@ -19,25 +19,27 @@ clean:
 check: format lint
 
 format:
-	uv run ruff format $(PROJECT) $(TESTS)
-	uv run ruff check --fix --unsafe-fixes $(PROJECT) $(TESTS) $(SCRIPTS)
+	uv run --frozen ruff format $(PROJECT) $(TESTS)
+	uv run --frozen ruff check --fix --unsafe-fixes $(PROJECT) $(TESTS) $(SCRIPTS)
+	uv run --frozen tombi format **/*.toml
 
 lint:
-	uv run ruff format --check $(PROJECT) $(TESTS) $(SCRIPTS)
-	uv run ruff check $(PROJECT) $(TESTS) $(SCRIPTS)
-	uv run mypy $(PROJECT) $(SCRIPTS)
+	uv run --frozen ruff format --check $(PROJECT) $(TESTS) $(SCRIPTS)
+	uv run --frozen ruff check $(PROJECT) $(TESTS) $(SCRIPTS)
+	uv run --frozen mypy $(PROJECT) $(SCRIPTS)
+	uv run --frozen tombi lint **/*.toml
 
 lock:
 	uv lock
 
 test:
-	uv run pytest --cov --cov-report=html --cov-report=xml
+	uv run --frozen pytest --cov --cov-report=html --cov-report=xml
 
 test-unit:
-	uv run pytest --cov --cov-report=html --cov-report=xml -m "not integration"
+	uv run --frozen pytest --cov --cov-report=html --cov-report=xml -m "not integration"
 
 test-integration:
-	uv run pytest -m "integration"
+	uv run --frozen pytest -m "integration"
 
 bump-version:
 	@make -- --check-git-status
@@ -96,5 +98,5 @@ bump-version:
 setup:
 	@make -- --check-git-status || exit 1
 	@make -- --setup-uv || exit 1
-	@echo "Checking pre-commits ..."; uv run prek run --all-files || exit 1
+	@echo "Checking pre-commits ..."; uv run --frozen prek run --all-files || exit 1
 	@echo "\nSetup completed successfully!\n"; exit 0
