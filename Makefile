@@ -19,13 +19,13 @@ clean:
 check: format lint
 
 format:
-	uv run --frozen ruff format $(PROJECT) $(TESTS)
-	uv run --frozen ruff check --fix --unsafe-fixes $(PROJECT) $(TESTS) $(SCRIPTS)
+	uv run --frozen ruff format
+	uv run --frozen ruff check --fix --unsafe-fixes
 	uv run --frozen tombi format **/*.toml
 
 lint:
-	uv run --frozen ruff format --check $(PROJECT) $(TESTS) $(SCRIPTS)
-	uv run --frozen ruff check $(PROJECT) $(TESTS) $(SCRIPTS)
+	uv run --frozen ruff format --check
+	uv run --frozen ruff check
 	uv run --frozen mypy $(PROJECT) $(SCRIPTS)
 	uv run --frozen tombi lint **/*.toml
 
