@@ -34,7 +34,7 @@ repos:
   hooks:
   - id: checkmake
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.14.10
+  rev: v0.15.11
   hooks:
   - id: ruff-check
     types_or: [ python, pyi ]
@@ -43,13 +43,13 @@ repos:
   - id: ruff-format
     types_or: [ python, pyi ]
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.19.1
+  rev: v1.20.1
   hooks:
   - id: mypy
     additional_dependencies:
-      - pandas-stubs==2.3.3.251219
+      - pandas-stubs==2.3.3.260113
 - repo: https://github.com/fpgmaas/deptry.git
-  rev: 0.24.0
+  rev: 0.25.1
   hooks:
   - id: deptry
 
