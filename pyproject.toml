@@ -44,8 +44,8 @@ ci = [
     "setuptools>=80.9.0,<83",
 ]
 dev = [
-    "pre-commit>=3.8,<5.0",
     "deptry==0.25.1",
+    "prek>=0.3.9,<1",
 ]
 lint = [
     "ruff==0.15.11",
