@@ -19,25 +19,27 @@ clean:
 check: format lint
 
 format:
-	uv run ruff format $(PROJECT) $(TESTS)
-	uv run ruff check --fix --unsafe-fixes $(PROJECT) $(TESTS) $(SCRIPTS)
+	uv run --frozen ruff format
+	uv run --frozen ruff check --fix --unsafe-fixes
+	uv run --frozen tombi format **/*.toml
 
 lint:
-	uv run ruff format --check $(PROJECT) $(TESTS) $(SCRIPTS)
-	uv run ruff check $(PROJECT) $(TESTS) $(SCRIPTS)
-	uv run mypy $(PROJECT) $(SCRIPTS)
+	uv run --frozen ruff format --check
+	uv run --frozen ruff check
+	uv run --frozen ty check
+	uv run --frozen tombi lint **/*.toml
 
 lock:
 	uv lock
 
 test:
-	uv run pytest --cov --cov-report=html --cov-report=xml
+	uv run --frozen pytest --cov --cov-report=html --cov-report=xml
 
 test-unit:
-	uv run pytest --cov --cov-report=html --cov-report=xml -m "not integration"
+	uv run --frozen pytest --cov --cov-report=html --cov-report=xml -m "not integration"
 
 test-integration:
-	uv run pytest -m "integration"
+	uv run --frozen pytest -m "integration"
 
 bump-version:
 	@make -- --check-git-status
@@ -82,19 +84,19 @@ bump-version:
 		then \
 			echo "uv.lock is up-to-date"; \
             uv sync; \
-  			uv run pre-commit install --install-hooks; \
+  			uv run prek install -f --install-hooks; \
 		else \
   			echo "uv.lock is NOT up-to-date."; \
   			echo "Update uv.lock and commit it."; \
 			uv sync; \
-			uv run pre-commit install --install-hooks; \
+			uv run prek install -f --install-hooks; \
 			git add uv.lock; \
-  			uv run pre-commit run --files uv.lock || true; \
+  			uv run prek run --files uv.lock || true; \
   			uv run git commit .pre-commit-config.yaml uv.lock -m ":lock: Lock the project dependencies"; \
 		fi
 
 setup:
 	@make -- --check-git-status || exit 1
 	@make -- --setup-uv || exit 1
-	@echo "Checking pre-commits ..."; poetry run pre-commit run --all-files || exit 1
+	@echo "Checking pre-commits ..."; uv run --frozen prek run --all-files || exit 1
 	@echo "\nSetup completed successfully!\n"; exit 0
