@@ -32,7 +32,7 @@ dependencies = [
   "numpy>=1.26,<3.0",
   "pydantic>=2.9.0,<3",
   "pydantic-extra-types>=2.10.0,<3",
-  "vl-convert-python==1.8.0",
+  "vl-convert-python==1.9.0",
 ]
 
 [project.urls]
