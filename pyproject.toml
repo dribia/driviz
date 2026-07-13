@@ -45,7 +45,7 @@ dev = [
   "prek>=0.3.9,<1",
 ]
 ci = [
-  "setuptools>=80.9.0,<83",
+  "setuptools>=80.9.0,<84",
 ]
 docs = [
   "jinja2>=3.1.6,<4",
@@ -59,7 +59,7 @@ docs = [
 lint = [
   "pandas-stubs>=2.2.3,<3",
   "ruff==0.15.20",
-  "tombi==0.9.20",
+  "tombi==1.2.0",
   "ty==0.0.31",
   "vega-datasets>=0.9.0,<0.10",
 ]
