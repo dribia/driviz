@@ -45,7 +45,7 @@ dev = [
   "prek>=0.3.9,<1",
 ]
 ci = [
-  "setuptools>=80.9.0,<84",
+  "setuptools>=80.9.0,<85",
 ]
 docs = [
   "jinja2>=3.1.6,<4",
