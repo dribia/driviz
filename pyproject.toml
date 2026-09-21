@@ -59,7 +59,7 @@ docs = [
 lint = [
   "pandas-stubs>=2.2.3,<3",
   "ruff==0.16.1",
-  "tombi==1.4.1",
+  "tombi==1.5.5",
   "ty==0.0.31",
   "vega-datasets>=0.9.0,<0.10",
 ]
