@@ -3,7 +3,7 @@ name = "driviz"
 version = "0.6.3"
 description = "Data Visualization Library containing the Dribia Theme."
 readme = "README.md"
-requires-python = ">=3.10,<3.15"
+requires-python = ">=3.11,<3.15"
 license = "MIT"
 authors = [{ name = "Dribia Data Research", email = "code@dribia.com" }]
 maintainers = [{ name = "Dribia Data Research", email = "code@dribia.com" }]
@@ -14,7 +14,6 @@ classifiers = [
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
@@ -174,3 +173,7 @@ default-groups = [
   "test",
   "docs",
 ]
+
+[tool.uv.exclude-newer-package]
+certifi = "2026-10-21T00:00:00Z"
+setuptools = "2026-10-21T00:00:00Z"
