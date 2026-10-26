@@ -3,7 +3,7 @@ name = "driviz"
 version = "0.6.3"
 description = "Data Visualization Library containing the Dribia Theme."
 readme = "README.md"
-requires-python = ">=3.11,<3.15"
+requires-python = ">=3.11,<3.16"
 license = "MIT"
 authors = [{ name = "Dribia Data Research", email = "code@dribia.com" }]
 maintainers = [{ name = "Dribia Data Research", email = "code@dribia.com" }]
@@ -18,6 +18,7 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
   "Topic :: Internet",
   "Topic :: Software Development",
   "Topic :: Software Development :: Libraries",
