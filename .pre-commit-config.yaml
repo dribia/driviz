@@ -59,6 +59,7 @@ repos:
   rev: 0.25.1
   hooks:
   - id: deptry
+    entry: uv run --frozen deptry .
 
 ci:
     autofix_commit_msg: 🎨 [pre-commit.ci] Auto format from pre-commit.com hooks
