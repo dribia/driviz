@@ -107,19 +107,33 @@ class _Base(BaseModel):
 class CategoryPalettes(_Base):
     """Discrete color palettes for categories."""
 
+    # Colorblind-safe palette derived from the Dribia colors, keeping the
+    # original blues. Safe for deuteranopia and protanopia.
     palette: list[Color] = [
         Color("#00004E"),
         Color("#0043AF"),
         Color("#3D97F2"),
         Color("#73BAFF"),
-        Color("#A8C2AA"),
-        Color("#CBC771"),
-        Color("#FFCD1B"),
-        Color("#FF9424"),
-        Color("#FF6D2A"),
-        Color("#FF3333"),
-        Color("#A0213E"),
-        Color("#601445"),
+        Color("#72D3D9"),
+        Color("#C0B667"),
+        Color("#F8CD29"),
+        Color("#F08617"),
+        Color("#CC440E"),
+        Color("#F15649"),
+        Color("#A4204E"),
+        Color("#64204D"),
+    ]
+    # Okabe-Ito colorblind-safe palette, optimized for maximum
+    # color-vision-deficiency separability.
+    okabe: list[Color] = [
+        Color("#000000"),
+        Color("#E69F00"),
+        Color("#56B4E9"),
+        Color("#009E73"),
+        Color("#F0E442"),
+        Color("#0072B2"),
+        Color("#D55E00"),
+        Color("#CC79A7"),
     ]
 
 
@@ -162,6 +176,8 @@ class Theme(_Base):
     _default_mpl_params: mpl.RcParams = deepcopy(mpl.rcParams)
     _only_blue_in_gradients: bool = False
     """Altair's default theme name."""
+    _color_blind: bool = False
+    """Whether the Okabe-Ito palette is active."""
     theme_name: str = "dribia"
     """Name under which the theme is registered."""
     color: CustomColors = CustomColors()
@@ -196,20 +212,34 @@ class Theme(_Base):
     Available options in: https://github.com/d3/d3-format/tree/main/locale
     """
 
+    def _get_hex_palette(self) -> list[str]:
+        """Get the hex codes of the active category palette.
+
+        The active palette depends on the `color_blind` option passed to
+        :meth:`~.enable`.
+
+        Returns: List of hex color strings of the active palette.
+
+        """
+        if self._color_blind:
+            colors = self.category_palettes.okabe
+        else:
+            colors = self.category_palettes.palette
+        return [c.as_hex() for c in colors]
+
     def _get_alt_theme(self) -> dict[str, Any]:
         """Build and get the theme's configuration dictionary.
 
         Returns: Theme's configurations.
 
         """
-        _hex_categories_palette = [c.as_hex() for c in self.category_palettes.palette]
+        _hex_categories_palette = self._get_hex_palette()
+        _blues_palette = [c.as_hex() for c in self.category_palettes.palette][0:4]
         _gradient_palette = (
-            _hex_categories_palette[0:4]
-            if self._only_blue_in_gradients
-            else _hex_categories_palette
+            _blues_palette if self._only_blue_in_gradients else _hex_categories_palette
         )
         _heatmap_palette = (
-            _hex_categories_palette[0:4]
+            _blues_palette
             if self._only_blue_in_gradients
             else _hex_categories_palette[0:10]
         )
@@ -287,19 +317,18 @@ class Theme(_Base):
             }
         }
 
-    def _get_cmap(self, _hex_categories_palette: list[str]) -> str:
+    def _get_cmap(self) -> str:
         """Build and get the theme's color map.
 
-        Args:
-            _hex_categories_palette: List of hex color strings.
+        Returns: Name of the registered Matplotlib colormap.
 
         """
         if self._only_blue_in_gradients:
             cmap_name = "dribia_blue"
-            cmap_colors = _hex_categories_palette[0:4]
+            cmap_colors = [c.as_hex() for c in self.category_palettes.palette][0:4]
         else:
-            cmap_name = "dribia"
-            cmap_colors = _hex_categories_palette[0:10]
+            cmap_colors = self._get_hex_palette()[0:10]
+            cmap_name = "okabe_ito" if self._color_blind else "dribia"
         if cmap_name not in mpl.colormaps:
             mpl.colormaps.register(
                 cmap=mpl.colors.LinearSegmentedColormap.from_list(
@@ -315,7 +344,7 @@ class Theme(_Base):
         Returns: Matplotlib theme's configurations.
 
         """
-        _hex_categories_palette = [c.as_hex() for c in self.category_palettes.palette]
+        _hex_categories_palette = self._get_hex_palette()
         return {
             "axes.prop_cycle": cycler("color", _hex_categories_palette),
             "axes.edgecolor": self.color.grey.as_hex(),
@@ -335,7 +364,7 @@ class Theme(_Base):
             "font.size": self.font_size_base,
             "font.weight": "normal",
             "grid.color": self.color.grey.as_hex(),
-            "image.cmap": self._get_cmap(_hex_categories_palette),
+            "image.cmap": self._get_cmap(),
             "legend.fontsize": self.font_size_base,
             "legend.labelcolor": self.font_color.as_hex(),
             "legend.loc": "upper right",
@@ -354,6 +383,7 @@ class Theme(_Base):
         self,
         which: WHICH_PACKAGE = "all",
         only_blue_in_gradients: bool = False,
+        color_blind: bool = False,
     ) -> None:
         """Enable the custom theme.
 
@@ -367,9 +397,16 @@ class Theme(_Base):
             only_blue_in_gradients: If True, use only the first four
                 palette colors (blues, dark to light) for gradient scales
                 (ramp, heatmap, and matplotlib colormap).
+            color_blind: If True, use the Okabe-Ito palette for categorical
+                colors, optimized for maximum color-vision-deficiency
+                separability. The default palette is derived from the
+                Dribia colors, keeping the original blues, and is already
+                safe for red-green color vision deficiency (deuteranopia
+                and protanopia).
 
         """
         self._only_blue_in_gradients = only_blue_in_gradients
+        self._color_blind = color_blind
         if which in ["all", "alt"]:
             _alt_theme = self._get_alt_theme()
 
@@ -402,9 +439,27 @@ class Theme(_Base):
         if which in ["all", "mpl"]:
             mpl.rcParams.update(self._default_mpl_params)
 
+    def _get_basic_colors(self, six: bool = False) -> list[str]:
+        """Get the basic colors for the active palette.
+
+        Args:
+            six: whether to get six colors, otherwise, four colors.
+
+        Returns: List of hex color strings of the basic colors.
+
+        """
+        _hex_categories_palette = self._get_hex_palette()
+        if self._color_blind:
+            return _hex_categories_palette[:6] if six else _hex_categories_palette[:4]
+        indices = [0, 2, 4, 6, 8, 10] if six else [0, 3, 6, 9]
+        return [_hex_categories_palette[i] for i in indices]
+
     @no_type_check
     def set_basic_colors(self, six: bool = False, first_grey: bool = False) -> None:
         """Set the theme's configuration with four basic colors.
+
+        The colors are taken from the active palette, which depends on the
+        `color_blind` option passed to :meth:`~.enable`.
 
         Args:
             six: whether to set the palette to six colors, otherwise, it
@@ -419,30 +474,14 @@ class Theme(_Base):
             >>> theme.set_basic_colors()
 
         """
-        if six:
-            colors = [
-                Color("#00004E"),
-                Color("#3D97F2"),
-                Color("#A8C2AA"),
-                Color("#FFCD1B"),
-                Color("#FF6D2A"),
-                Color("#A0213E"),
-            ]
-            name = "basic_colors_six"
-        else:
-            colors = [
-                Color("#00004E"),
-                Color("#73BAFF"),
-                Color("#FFCD1B"),
-                Color("#FF3333"),
-            ]
-            name = "basic_colors"
+        colors = self._get_basic_colors(six=six)
+        name = "basic_colors_six" if six else "basic_colors"
         if first_grey:
-            colors = [Color("#BABFC2"), *colors]
+            colors = ["#BABFC2", *colors]
             name += "_grey"
 
         new_theme = self._get_alt_theme()
-        new_theme["config"]["range"]["category"] = [c.as_hex() for c in colors]
+        new_theme["config"]["range"]["category"] = colors
 
         @alt.theme.register(name, enable=True)
         def dribia_basic_colors_theme():
@@ -455,7 +494,7 @@ class Theme(_Base):
         )
 
         mpl_theme = self._get_mpl_theme()
-        mpl_theme["axes.prop_cycle"] = cycler("color", [c.as_hex() for c in colors])
+        mpl_theme["axes.prop_cycle"] = cycler("color", colors)
         mpl.rcParams.update(mpl_theme)
 
 

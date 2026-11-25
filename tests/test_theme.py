@@ -53,21 +53,72 @@ def test_theme():
     theme.set_basic_colors(six=True, first_grey=True)
     assert alt.theme.active == "basic_colors_six_grey"
     theme.enable(only_blue_in_gradients=True)
-    assert (
-        theme._get_cmap(
-            _hex_categories_palette=theme._get_alt_theme()["config"]["range"][
-                "category"
-            ]
-        )
-        == "dribia_blue"
-    )
+    assert theme._get_cmap() == "dribia_blue"
     theme.disable()
     theme.enable()
-    assert (
-        theme._get_cmap(
-            _hex_categories_palette=theme._get_alt_theme()["config"]["range"][
-                "category"
-            ]
-        )
-        == "dribia"
-    )
+    assert theme._get_cmap() == "dribia"
+
+
+def test_theme_colorblind():
+    """Test the colorblind option of the enable method."""
+
+    def _range(key: str) -> list[str]:
+        return theme._get_alt_theme()["config"]["range"][key]
+
+    theme.disable()
+    theme.enable()
+    _default_category = _range("category")
+    assert theme._get_cmap() == "dribia"
+
+    # The default palette is derived from the Dribia colors, keeping the
+    # blues, and is safe for deuteranopia and protanopia.
+    assert _range("category") == [c.as_hex() for c in theme.category_palettes.palette]
+
+    # The Okabe-Ito palette maximizes colorblind separability.
+    theme.enable(color_blind=True)
+    assert alt.theme.active == theme.theme_name
+    assert _range("category") != _default_category
+    assert _range("category") == [c.as_hex() for c in theme.category_palettes.okabe]
+    assert theme._get_cmap() == "okabe_ito"
+
+    # The diverging scale is kept untouched in colorblind mode.
+    assert _range("diverging") == [
+        theme.color.blue.as_hex(),
+        theme.color.white.as_hex(),
+        theme.color.red.as_hex(),
+    ]
+
+    # Gradients keep the Dribia blues in colorblind mode.
+    theme.enable(color_blind=True, only_blue_in_gradients=True)
+    _blues = [c.as_hex() for c in theme.category_palettes.palette][0:4]
+    assert _range("ramp") == _blues
+    assert _range("heatmap") == _blues
+    assert theme._get_cmap() == "dribia_blue"
+
+    # Basic colors are taken from the active palette.
+    theme.enable(color_blind=False)
+    assert theme._get_basic_colors() == [
+        theme.category_palettes.palette[i].as_hex() for i in (0, 3, 6, 9)
+    ]
+    assert theme._get_basic_colors(six=True) == [
+        theme.category_palettes.palette[i].as_hex() for i in (0, 2, 4, 6, 8, 10)
+    ]
+    theme.set_basic_colors()
+    assert alt.theme.active == "basic_colors"
+    theme.set_basic_colors(six=True)
+    assert alt.theme.active == "basic_colors_six"
+
+    # The Okabe-Ito basic colors are the first ones of the palette.
+    theme.enable(color_blind=True)
+    assert theme._get_basic_colors() == [
+        c.as_hex() for c in theme.category_palettes.okabe[:4]
+    ]
+    assert theme._get_basic_colors(six=True) == [
+        c.as_hex() for c in theme.category_palettes.okabe[:6]
+    ]
+
+    # Disabling and enabling again restores the default palette.
+    theme.disable()
+    theme.enable()
+    assert _range("category") == _default_category
+    assert theme._get_cmap() == "dribia"
